@@ -1,4 +1,10 @@
-import { ADD_USER, DELETE_USER, EDIT_USER, UPDATE_USER } from "../types";
+import {
+  ADD_USER,
+  DELETE_USER,
+  EDIT_USER,
+  SEARCH_USER,
+  UPDATE_USER,
+} from "../types";
 
 export const addUser = (payload) => {
   return {
@@ -24,6 +30,13 @@ export const editUser = (payload) => {
 export const deleteUser = (payload) => {
   return {
     type: DELETE_USER,
+    payload,
+  };
+};
+
+export const searchUser = (payload) => {
+  return {
+    type: SEARCH_USER,
     payload,
   };
 };

@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addUser, updateUser } from "../../store/actions";
+import { addUser, searchUser, updateUser } from "../../store/actions";
 import "./BTForm.css";
 
 class FormDangKy extends Component {
   stateDefault = {
-    id: "",
     maSV: "",
     hoTen: "",
     phoneNumber: "",
@@ -17,7 +16,7 @@ class FormDangKy extends Component {
     errors: {},
   };
   handleState = (event) => {
-    console.log(event);
+    // console.log(event);
     const {
       name,
       value,
@@ -60,7 +59,6 @@ class FormDangKy extends Component {
   };
 
   handleSubmit = (event) => {
-    console.log("hay qua");
     event.preventDefault();
     if (!event.target.checkValidity()) {
       return;
@@ -71,27 +69,20 @@ class FormDangKy extends Component {
       this.props.dispatch(addUser(this.state.values));
     }
     this.setState({
+      key: "",
       values: this.stateDefault,
     });
   };
 
   handleKey = (event) => {
-    // console.log(event.target.value);
-    // this.key = event.target.value;
     this.setState({
       key: event.target.value,
     });
   };
 
   handelSearch = () => {
-    console.log("first");
-    this.props.dispatch({
-      type: "SEARCH",
-      payload: this.state.key,
-    });
-    // this.setState({
-    //   key: "",
-    // });
+    // console.log(this.state.key);
+    this.props.dispatch(searchUser(this.state.key));
   };
 
   // Chuyển props thành state nội bộ của component
@@ -106,7 +97,6 @@ class FormDangKy extends Component {
   };
 
   render() {
-    // console.log(this.state);
     const { maSV, hoTen, phoneNumber, email } = this.state.values;
     return (
       <div className="pt-5">
@@ -224,6 +214,7 @@ class FormDangKy extends Component {
                 <input
                   type="search"
                   name="Search"
+                  value={this.state.key}
                   placeholder="Search..."
                   className="w-32 py-2 pl-10 text-sm rounded-md border-2 border-violet-400 sm:w-auto focus:outline-none dark:bg-gray-800 dark:text-gray-100 focus:dark:bg-gray-900 focus:border-violet-400"
                   onChange={this.handleKey}
