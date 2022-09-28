@@ -23,12 +23,13 @@ export const BTQuanLySinhVien = (state = stateDefault, { type, payload }) => {
       const user = { ...payload, id: Date.now() };
       data.push(user);
       state.svSearch = [];
-      alert("Bạn đã đăng ký sanh diên thành công!");
+      Swal.fire("Ơn Giời!", "Bạn đã đăng ký thành công!", "success");
       return { ...state, mangSinhVien: data };
     }
     case DELETE_USER: {
       const data = state.mangSinhVien.filter((item) => item.id !== payload);
-      return { ...state, mangSinhVien: data };
+      const dataSearch = state.svSearch.filter((item) => item.id !== payload);
+      return { ...state, mangSinhVien: data, svSearch: dataSearch };
     }
     case EDIT_USER: {
       const user = state.mangSinhVien.find((item) => item.id === payload);
@@ -39,8 +40,15 @@ export const BTQuanLySinhVien = (state = stateDefault, { type, payload }) => {
       const newUserList = state.mangSinhVien.map((item) =>
         item.id === payload.id ? payload : item
       );
+      const newUserSearchList = state.svSearch.map((item) =>
+        item.id === payload.id ? payload : item
+      );
       state.selectedUser = null;
-      return { ...state, mangSinhVien: newUserList };
+      return {
+        ...state,
+        mangSinhVien: newUserList,
+        svSearch: newUserSearchList,
+      };
     }
     case SEARCH_USER: {
       state.flag = true;
