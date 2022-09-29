@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
 import { addUser, searchUser, updateUser } from "../../store/actions";
 import "./BTForm.css";
 
@@ -15,6 +16,7 @@ class FormDangKy extends Component {
     values: this.stateDefault,
     errors: {},
   };
+
   handleState = (event) => {
     // console.log(event);
     const {
@@ -61,6 +63,12 @@ class FormDangKy extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     if (!event.target.checkValidity()) {
+      Swal.fire({
+        icon: "error",
+        title: "Giời ơi...",
+        text: "Vui lòng điền đầy đủ thông tin!",
+        footer: '<a href="">Xin cảm ơn</a>',
+      });
       return;
     }
     if (this.props.selectedUser) {
