@@ -138,7 +138,7 @@ class FormDangKy extends Component {
                 required
                 name="hoTen"
                 title="Họ tên"
-                pattern="^[A-Za-z]+$"
+                pattern="^[A-Z a-z]+$"
                 value={hoTen}
                 onChange={this.handleState}
               />

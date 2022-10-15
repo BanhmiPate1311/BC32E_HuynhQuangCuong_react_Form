@@ -52,7 +52,9 @@ export const BTQuanLySinhVien = (state = stateDefault, { type, payload }) => {
     }
     case SEARCH_USER: {
       state.flag = true;
-      const data = state.mangSinhVien.filter((item) => item.hoTen === payload);
+      const data = state.mangSinhVien.filter((item) =>
+        item.hoTen.toLowerCase().includes(payload.toLowerCase())
+      );
       data.length === 0 && payload !== ""
         ? (state.flag = false)
         : (state.flag = true);
